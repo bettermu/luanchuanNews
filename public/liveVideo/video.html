@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>监控直播</title>
+    <link rel="stylesheet" href="css/video.css">
+    <!--<script src="js/jquery.min.js?v=3.1.0" type="text/javascript" charset="utf-8"></script>-->
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/jq.getVideo.min.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css">
+
+
+        html, body, .video-wrapper {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow:hidden;
+        }
+
+        .video-wrapper .monitor-list-warp {
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-wrapper .monitor-list-warp .video-warp {
+            float: left;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+
+        .video-wrapper .video-box {
+            width: 100%;
+            height: 100%;
+            background: #1c254a;
+        }
+
+        .video-wrapper .video-warp p {
+            margin-left: 20px;
+            line-height: 30px;
+            color: #fff;
+        }
+
+        .video-wrapper .video-warp .full-screen {
+            position: absolute;
+            right: 2px;
+            bottom: 1px;
+            width: 25px;
+            height: 25px;
+            /*background: url(../../images/video-monitor/full-screen.png) no-repeat center;*/
+        }
+
+        .video-wrapper .video-warp .close-video {
+            position: absolute;
+            right: 35px;
+            bottom: 1px;
+            width: 25px;
+            height: 25px;
+            /*background: url(../../images/video-monitor/video-close1.png) no-repeat center;*/
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+
+<body class="video-wrapper">
+<!--视频直播容器,id可以自己定义-->
+<div class="monitor-list-warp rel">
+    <div class="video-warp rel">
+        <div id="videoBox0" class="video-box">
+        </div>
+        <!--<span class="full-screen hide hand" data-index="0"></span>-->
+    </div> 
+</div>
+
+<!--调试窗口,需$.fn.getVideo.ctrl.logs=true;
+<div id="yst-video-box-logs" class="video-logs"></div>
+-->
+
+<!--调用参数：按需增加，可以为空或使用默认值-->
+<script type='text/javascript'>
+    +(function ($) {
+        /**
+         * @description 自定义控制类参数,$.fn.getVideo.ctrl & ctrl
+         * @property {string} api 接口url,默认'//cdn88.cn/api/',eg:http://ip:2003
+         * @property {string} swf 播放器路径,默认'js/monitorFlashPlayerSN.swf',仅调用flash播放时有效
+         * @property {string} msg 消息定义xml文件路径,默认'js/msg.json'
+         * @property {boolean} list 是否启用视频列表,默认false,传入多个设备sn时自动开启
+         * @property {boolean} autostart 自动切片(预加载),默认false,list=true时有效
+         * @property {number} player = [0|1|2] 选择播放器,默认0(自适应浏览器),1=flash播放,2=html5播放
+         * @property {number} res = [0|1] 分辨率,默认1(辅码流),0=主码流,仅支持flash播放
+         * @property {number} ratio 视频画面高/宽，默认0(自适应容器),eg:0.75
+         * @property {number} buffer 缓冲时间,默认2秒,网络较差时适当调大此值
+         * @property {boolean} control 是否开启控制按钮(云台控制,分辨率,高/宽比)
+         * @property {boolean} debug 是否打开本地调试信息,默认false
+         * @property {boolean} logs 是否上传日志,默认false
+         * @property {boolean} alert 是否弹出错误信息,默认true
+         * @property {number} durationLimit 视频连续播放时长限制(秒),0表示不限制,覆盖取最小值,默认600秒(10分钟)
+         * @property {number} heartbeatInterval 心跳连接服务器间隔时间(秒),覆盖取最大值,默认30秒
+         * @example 1 多个属性赋值
+         * $.fn.getVideo.ctrl = {
+				 *   api: '//cdn88.cn/api/',
+				 *   ...
+				 * }
+         * @example 2 单个属性赋值
+         * $.fn.getVideo.ctrl.msg = '/themes/ystcom/js/msg.xml';
+         * $.fn.getVideo.ctrl.swf = '/themes/ystcom/js/monitorFlashPlayerSN.swf';
+         */
+        $.fn.getVideo.ctrl = {
+            //更多属性请参数上面说明部分
+            //msg: 'js/msg.json',
+            swf: 'js/monitorFlashPlayerSN.swf',
+            ratio: 0.5,
+            player:1,
+            //control: true,
+            //debug: true,
+            //logs: false,
+        };
+
+        /**
+         * @description 当播放器播放状态发生改变时的回调函数
+         * @param {string} status = [onloadstart|onloadedmetadata|onplay|onpause|onwaiting|onprogress|onerror|onended|onabort] 播放状态
+         */
+        //$.fn.getVideo.callback = function(status) {
+        /*
+        switch(status) {
+            case "onloadstart":
+                console.log('加载视频中');
+                break;
+            case "onloadedmetadata":
+                console.log('视频的元数据/视频信息已加载!');
+                break;
+            case "onplay":
+                console.log('开始播放');
+                break;
+            case "onpause":
+                console.log('暂停播放');
+                break;
+            case "onwaiting":
+                console.log('视频缓冲中');
+                break;
+            case "onprogress":
+                console.log('视频下载中');
+                break;
+            case "onerror":
+                console.log('发生错误');
+                break;
+            case "onended":
+                console.log('播放结束');
+                break;
+            case "onabort":
+                console.log('放弃加载');
+                break;
+            default:
+                break;
+        }
+        */
+        //};
+
+        /**
+         * @description 自定义加密
+         * @param {string} str 需要加密的字符串
+         * @return {string} 返回加密后的字符串
+         */
+        //$.fn.getVideo.encode = function(str) {
+        //do something
+        //}
+
+        /**
+         * @description 自定义解密
+         * @param {string} str 需要解密的字符串
+         * @return {string} 返回解密后的字符串
+         */
+        //$.fn.getVideo.decode = function(str) {
+        //do something
+        //}
+
+        /**
+         * @description 监控直播调用（http方法）
+         * @param {object|string} opt js传参
+         *   object:监控直播账号参数数组{ip,user,password,dev}
+         *   string:加密成字符串的监控直播账号参数数组
+         * @example 1 js字符串参数(加密后的数组对象)
+         * $(element).getVideo('CI6InY4LmNkbjg4LmNuIiwidXNlciI6ImRlbW8ifQ==eyJpc-5');
+         * @example 2 js数组对象参数
+         * $(element).getVideo({
+				 *   ip:'v8.cdn88.cn',//转发服务器域名/IP地址
+				 *   user:'demo',//用户名
+				 *   password:'',//密码,为空时可以忽略该参数
+				 *   dev:'',//设备sn序列号,多个序列号用","号分隔,为空时自动获取账号下第1台设备
+				 * });
+         * @example 3 浏览器url传参
+         * http://cdn88.cn/?user=demo&dev=ADS-2CD3T10D-I320151120AACH554444975
+         * $('#yst-video-box').getVideo();
+         * @example 4 data属性传参
+         * <div id="yst-video-box" class="video-box" data-user="demo"></div>
+         * $('#yst-video-box').getVideo();
+         * @example 5 混合传参,按优先级覆盖,url>data>js
+         */
+            // $('#yst-video-box').getVideo({
+            //     ip: '222.88.82.90',
+            //     user: 'luanchuan',
+            //     password: '123456',
+            //     dev: 'PZC4MU013W02164'
+            // });
+        
+        
+
+        //window.postMessage('111','*')
+
+        var ctrlObj = {
+                ip: '222.88.82.90',
+                user: 'luanchuan',
+                password: '123456',
+                dev: ''
+            };
+
+        
+        window.addEventListener('message',function(e){
+          ctrlObj.dev = e.data
+          $('.video-box').getVideo(ctrlObj)
+        },false)
+
+        //$.each($('.monitor-list-warp .video-box'), function (index, item) {
+        //    ctrlObj.dev = urls[index];
+        //    $(item).getVideo(ctrlObj);
+        //});
+
+    })(jQuery);
+</script>
+</body>
+
+</html>

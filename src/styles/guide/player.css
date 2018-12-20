@@ -1,0 +1,123 @@
+.audio-player {
+    left: 50%;
+    transform: scale(0.7);
+    top: 579px;
+    margin-left: -368px;
+    padding: 7.5px 0;
+    width: 736px;
+    height: 96px;
+    background-color: rgba(49, 149, 255, 0.5);
+    border-radius: 55.5px;
+
+    
+}
+
+@media screen and (max-width: 1500px) {
+    .audio-player {
+        
+        top: 565px;   
+    }
+}
+
+
+
+
+.ap-close-btn {
+    top: -14px;
+    left: 736px;
+    width: 42px;
+    height: 42px;
+    background: url('../../assets/img/guide/del-icon.png') center no-repeat rgba(0, 0, 0, 0.4);
+    opacity: 0.6;
+    border-radius: 50%;
+}
+
+.play-btn-w {
+    margin-left: 7.5px;
+    width: 96px;
+    height: 96px;
+    /* border: solid 4px rgba(49, 149, 255, 0.6); */
+    border-radius: 50%;
+}
+
+.play-btn {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../../assets/img/guide/pause-icon.png') center no-repeat;
+    z-index: 9;
+}
+
+.paused .play-btn {
+    background: url('../../assets/img/guide/play-bg.png') 32px center no-repeat;
+}
+
+.loading .play-btn {
+    background: url('../../assets/img/guide/loading.png') center #3195ff no-repeat;
+    opacity: 0.8;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+
+.play-btn-bg {
+    width: 100%;
+    height: 100%;
+    -webkit-animation: spin 12s linear infinite;
+    animation: spin 12s linear infinite;
+}
+
+.paused .play-btn-bg {
+    animation-play-state: paused;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.ap-main {
+    margin-left: 130px;
+    height: 100%;
+}
+
+.audio-name {
+    padding: 10px 0;
+    max-width: 535px;
+}
+
+.cur-time,
+.total-time {
+    /* font-size: 24px; */
+    line-height: 36px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.pb-bar {
+    margin: 0 16px;
+    padding-top: 15px;
+    width: 435px;
+}

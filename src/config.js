@@ -1,0 +1,1 @@
+export const apiPath = process.env.NODE_ENV === 'production' ? 'http://10.4.186.162:8079' : '';

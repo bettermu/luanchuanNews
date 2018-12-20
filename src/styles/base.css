@@ -1,0 +1,200 @@
+/* ==========================================================================
+   工具样式
+   ========================================================================== */
+
+.fixed {
+    position: fixed;
+}
+
+.abs {
+    position: absolute;
+}
+
+.rel {
+    position: relative;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.ovh {
+    overflow: hidden;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.tc {
+    text-align: center;
+}
+
+.tr {
+    text-align: right;
+}
+
+.tl {
+    text-align: left;
+}
+
+.vt {
+    vertical-align: top;
+}
+
+.vm {
+    vertical-align: middle;
+}
+
+.vb {
+    vertical-align: bottom;
+}
+
+.db {
+    display: block;
+}
+
+.dlb {
+    display: inline-block;
+}
+
+.dn {
+    display: none;
+}
+
+.vh {
+    visibility: hidden;
+}
+
+.ell {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.cp {
+    cursor: pointer;
+}
+
+.bcfff {
+    background: #fff;
+}
+
+.c333 {
+    color: #333;
+}
+
+.c666 {
+    color: #666;
+}
+
+.c999 {
+    color: #999;
+}
+
+/*主题文字、背景、边框颜色*/
+
+.cfff {
+    color: #fff;
+}
+
+.c000 {
+    color: #000;
+}
+
+.ccc {
+    color: #ccc;
+}
+
+/*常用字号*/
+.f12 {
+    font-size: 12px;
+}
+
+.f14 {
+    font-size: 14px;
+}
+
+.f16 {
+    font-size: 16px;
+}
+
+.f18 {
+    font-size: 18px;
+}
+
+.f20 {
+    font-size: 20px;
+}
+
+.f24 {
+    font-size: 24px;
+}
+
+.f26 {
+    font-size: 26px;
+}
+
+/* ==========================================================================
+   基础样式
+   ========================================================================== */
+p {
+    margin: 0;
+    padding: 0;
+}
+
+iframe {
+    border: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td,
+th {
+    padding: 0;
+    text-align: left;
+}
+
+input:focus,
+a:focus {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a, button, input, textarea {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+ol, ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+

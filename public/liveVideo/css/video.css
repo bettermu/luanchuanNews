@@ -1,0 +1,109 @@
+/*播放器及列表容器*/
+html,body {
+	margin: 0;
+	padding: 0;
+	background: #FFF;
+}
+
+.video-box {
+	
+	margin: 0 auto;
+	background: #FFF;
+	position: relative;
+}
+/*播放器容器*/
+.video-wrap {
+	height:100%;
+	background: #000 url(../images/icons/loading.gif) no-repeat center center;
+	display: none;
+}
+/*播放器video/object*/
+.video-player {
+	object-fit: fill;
+	display: block;
+}
+/*播放控制/云台控制*/
+.video-control {
+	display: none;
+}
+.video-control-button {
+	width: 50px;
+	margin-right: 5px;
+	padding: 5px 10px;
+	font: normal 12px/25px "微软雅黑", arial, sans-serif;
+}
+/*播放列表*/
+.video-list {
+	margin:0 auto;
+	padding: 15px;
+	background: #FFFDF0;
+}
+/*row*/
+.video-list-items {
+	margin:0 -15px;
+	list-style: none;
+	padding: 0;
+	/*overflow: hidden;*/
+}
+
+.video-list-item {
+	position: relative;
+	min-height: 1px;
+	margin-bottom: 15px;
+	/*padding: 0 15px;*/
+	width: 50%;
+	float: left;
+}
+
+.video-list-item h3 {
+	margin: 0 15px;
+	font: normal 14px/25px "微软雅黑", arial, sans-serif;
+}
+
+.online {}
+
+.offline {}
+
+.selected {}
+
+.video-list-item-link {
+	display: inline-block;
+	margin: 0 15px;
+	color: #255625;
+	text-decoration: none;
+}
+
+.video-list-item img {
+	width: 100%;
+	height: auto;
+}
+
+@media (min-width: 640px) {
+	.video-list-item {
+		width: 50%;
+	}
+}
+
+@media (min-width: 900px) {
+	.video-list-item {
+		width: 33.33333333%;
+	}
+}
+
+@media (min-width: 1200px) {
+	.video-list-item {
+		width: 25%;
+	}
+}
+/*格式清除浮动*/
+.video-list:before,
+.video-list:after,
+.video-list-items:before,
+.video-list-items:after {
+	display: table;
+	content: " ";
+}
+.video-list:after,
+.video-list-items:after {
+	clear: both;
+}

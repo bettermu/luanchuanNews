@@ -1,0 +1,14 @@
+div.v-pagination>ul>li>a {
+  margin:0 4px !important;
+  background-color:#f7f7f7 !important; 
+  border: none !important;
+  box-shadow: 0 3px 0 #dfe0e1 !important;
+  border-radius:4px !important;
+  color:#666 !important;
+}
+
+div.v-pagination>ul>li.active>a, div.v-pagination>ul>li.active>span {
+  background-color:#00c275 !important;
+  color:#fff !important;
+}
+
